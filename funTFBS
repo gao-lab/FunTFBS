@@ -1,0 +1,126 @@
+#!/bin/bash
+#bedtools -version
+set -e
+
+DIR=$(dirname $(readlink -f $0))
+PATH=$PATH:$DIR/src
+
+function do_usage {
+cat << EOF
+
+Program: FunTFBS (The Tool for identifying TFBS with transcriptional regulatory functions)
+Version: v1.1.0
+
+Usage:   funTFBS -t TFBS.bed -m motifs -f format -p phyloP.bg -g genome.fa -o output
+         -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
+	 -m [motifs]    the file containing binding motifs in specified format.
+	 -f [format]    the format of bidning motifs, could be: meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
+	 -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
+	 -g [genome.fa] the file containing genomic sequence in fasta format.
+	 -o [output]    the output directory.
+	 -h             show this help information.
+
+EOF
+echo Example: funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
+exit
+}
+
+if [[ $# -eq 0 ]]; then do_usage; fi
+
+while getopts :t:m:f:p:g:o:h option
+do
+	case "$option" in
+		t) TFBS=$OPTARG;;
+		m) motifs=$OPTARG;;
+		f) mtform=$OPTARG;;
+		p) phyloP=$OPTARG;;
+		g) genome=$OPTARG;;
+		o) output_dir=$OPTARG;;
+		h) do_usage;;
+		\?) echo "Option -$OPTARG not recognized."; do_usage;;
+	esac
+done
+
+mkdir -p $output_dir $output_dir/motifs
+
+# format TFBS bed file
+bedtools getfasta -s -fi $genome -bed $TFBS -fo $output_dir/TFBS.fa
+paste <(cut -f 1-6 $TFBS) <(grep -v '^>' $output_dir/TFBS.fa) | sort -k 1,1 -k 2,2n > $output_dir/TFBS.bed
+N=`cat $output_dir/TFBS.bed | wc -l`
+echo "TFBS before filtering: $N"
+
+# format motifs
+echo "motif format: $mtform"
+case $mtform in
+	meme)	cat $motifs > $output_dir/input.meme;;
+	beeml)	beeml2meme $motifs > $output_dir/input.meme;;
+	chen)	chen2meme $motifs > $output_dir/input.meme;;
+	jaspar-pfm) jaspar2meme -bundle $motifs > $output_dir/input.meme;;
+	jaspar-sites) jaspar2meme $output_dir/motifs > $output_dir/input.meme;;
+	jaspar-cm) jaspar2meme -cm $output_dir/motifs > $output_dir/input.meme;;
+	transfac) transfac2meme $motifs > $output_dir/input.meme;;
+	uniprobe) uniprobe2meme $motifs > $output_dir/input.meme;;
+esac
+
+# mtFreq
+#ls $motif_dir/*.meme | while read fl
+ls $output_dir/input.meme | while read fl
+do
+	do_meme2freqBatch.pl $fl
+done > $output_dir/mtFreq.txt
+
+# check missed motif
+cut -f 1 $output_dir/mtFreq.txt | sort -u > $output_dir/TF_in_motif.txt
+cut -f 4 $output_dir/TFBS.bed | sort -u > $output_dir/TF_in_BS.txt
+comm -1 -3 $output_dir/TF_in_motif.txt $output_dir/TF_in_BS.txt > $output_dir/TF_missed.txt
+if [[ -s $output_dir/TF_missed.txt ]]
+then
+	echo "Missed TF motif information for:"
+	cat $output_dir/TF_missed.txt
+	touch $output_dir/TFBS_filtered.bed
+	exit
+fi
+
+do_seq2mtFreq.pl $output_dir/mtFreq.txt $output_dir/TFBS.bed > $output_dir/TFBS.mtFreq
+
+# extend 2bp
+awk -F "\t" '{left=$2-2;right=$3+2;print $1,left,right,$4,$5,$6,$7}' OFS="\t" $output_dir/TFBS.bed > $output_dir/TFBS_2bp.bed0	# some "left" less than 0
+if [[ ! -e ${genome}.fai ]]
+then
+	samtools faidx ${genome}
+fi
+cut -f 1,2 ${genome}.fai > $output_dir/genome.txt
+
+bedtools slop -i $output_dir/TFBS.bed -g $output_dir/genome.txt -b 2 > $output_dir/TFBS_2bp.bed
+
+# phyloP (2bp)
+#### > extension may change the order, so add the line number at col 8.
+awk -F "\t" '{print $0,NR}' OFS="\t" $output_dir/TFBS_2bp.bed > $output_dir/TFBS_2bp.beds
+sort -k 1,1 -k 2,2n $output_dir/TFBS_2bp.beds > $output_dir/TFBS_2bp.beds_sorted
+#### <
+# no gap in PhyloP scores
+#bedtools map -nonamecheck -g <(sort -k 1,1 $output_dir/genome.txt) -a $output_dir/TFBS_2bp.beds_sorted -b $phyloP -c 4 -o collapse > $output_dir/TFBS_2bp.ppa	# XXX
+# allow gap in PhyloP scores
+awk -F "\t" '{$4=$4"_"$8; print $0}' OFS="\t" $output_dir/TFBS_2bp.beds_sorted > $output_dir/TFBS_2bp.beds_sorted_numed
+bedtools makewindows -b $output_dir/TFBS_2bp.beds_sorted_numed -w 1 -i src | sort -T $output_dir -k 1,1 -k 2,2n | bedtools map -a - -b $phyloP -c 4 -o collapse | sort -T $output_dir -k 4,4 -s | sed 's/\.$/NA/g' | bedtools groupby -g 4 -c 5 -o collapse > $output_dir/TFBS_2bp.pp_collapsed
+sed 's/_\([0-9]\+\)\t/\t\1\t/' $output_dir/TFBS_2bp.pp_collapsed | sort -T $output_dir -k 2,2n | cut -f 3 > $output_dir/TFBS_2bp.pp_sorted
+paste <(cut -f 1-7 $output_dir/TFBS_2bp.beds) $output_dir/TFBS_2bp.pp_sorted > $output_dir/TFBS_2bp.pp0
+#myjoin -F 8 -f 8 -m $output_dir/TFBS_2bp.beds $output_dir/TFBS_2bp.ppa | cut -f 9- | cut -f 1-7,9 > $output_dir/TFBS_2bp.pp0	# revert the order and then remove col 8.
+do_revMinus.pl $output_dir/TFBS_2bp.pp0 > $output_dir/TFBS_2bp.ppe	# reverse the value in "-" strand
+#### > fix the phyloP at the boundary of chromosome
+do_fixPhyloP.pl <(paste $output_dir/TFBS_2bp.bed0 $output_dir/TFBS_2bp.bed $output_dir/TFBS_2bp.ppe) > $output_dir/TFBS_2bp.pp
+#### <
+#rm -f $output_dir/TFBS_2bp.pp0 $output_dir/TFBS_2bp.ppe	# XXX
+
+# calculate correlation
+funTFBS.r $output_dir/TFBS.bed $output_dir/TFBS.mtFreq $output_dir/TFBS_2bp.pp $output_dir
+
+# clean tmp files
+rm -rf $output_dir/motifs
+rm -f $output_dir/input.meme $output_dir/TFBS_2bp.* $output_dir/TF_in_* $output_dir/TF_missed.txt $output_dir/genome.txt $output_dir/mtFreq.txt $output_dir/TFBS.*
+
+n=`cat $output_dir/TFBS_filtered.bed | wc -l`
+echo "TFBS after filtering: $n"
+echo "$output_dir/TFBS_filtered.bed"
+#echo "OK"
+
