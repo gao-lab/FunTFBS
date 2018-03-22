@@ -4,8 +4,8 @@ library("data.table")
 #library("parallel")
 
 if(length(commandArgs(T))!=4) {
-cat("Usage:   Rscript funTFBS.r","\n")
-cat("Example: Rscript funTFBS.r demo/test_100_TFBS.bed demo/test_100_mtFreq.txt demo/test_100_phyloP.txt test\n")
+cat("Usage: Rscript do_filterTFBS.r ","\n")
+cat("       Rscript do_filterTFBS.r demo/test_100_TFBS.bed demo/test_100_mtFreq.txt demo/test_100_phyloP.txt ftout/test\n")
 q(save="no")
 }
 
@@ -14,14 +14,14 @@ file_mtFreq <- commandArgs(trailingOnly = T)[2]
 file_phyloP <- commandArgs(trailingOnly = T)[3]
 outdir <- commandArgs(trailingOnly = T)[4]
 
-#cl <- makeCluster(getOption("cl.cores", 10))
+#cl <- makeCluster(getOption("cl.cores", 20-1))
 
 ###
 do_test <- function() {
   file_mytfbs <- "test_100_TFBS.bed"
   file_mtFreq <- "test_100_mtFreq.txt"
   file_phyloP <- "test_100_phyloP.txt"
-  outdir <- "test"
+  outdir <- "ftout/test"
 }
 ###
 
@@ -32,29 +32,14 @@ phyloP <- fread(file = file_phyloP,header = F,sep = "\t",stringsAsFactors = F)
 compin <- data.frame(freq=mtFreq$V1,phyloP=phyloP$V8,stringsAsFactors = F)
 
 #
-do_cor_asb <- function(comp,md = "pearson",cutoff = 0.5, flank, absolute = F) { # specific extension for low CV (with constant flank value)
-#  out <- parApply(cl,comp,1,function(x) {
+do_cor_0bp_abs <- function(comp,md = "pearson") {
   out <- apply(comp,1,function(x) {
-    kx <- strsplit(x[1],split = " ")[[1]] # mtFreq
-    ky <- strsplit(x[2],split = " ")[[1]] # phyloP (2bp)
+    kx <- strsplit(x[1],split = " ")[[1]]
+    ky <- strsplit(x[2],split = " ")[[1]]
     kx[kx=="NA"] <- NA
     ky[ky=="NA"] <- NA
     kx <- as.numeric(kx)
-    ky <- as.numeric(ky)
-    
-    if(absolute) {
-      ky <- abs(ky)
-    }
-    
-    kx_cv <- sd(kx)/mean(kx)
-    if(kx_cv <= cutoff) { # extension
-      kx <- c(flank,flank,as.numeric(kx),flank,flank)
-      ky <- ky
-    } else {  # no extension
-      kx <- kx
-      ky <- ky[3:(length(ky)-2)]
-    }
-    
+    ky <- abs(as.numeric(ky))
     kk <- sum( (! is.na(kx)) & (! is.na(ky)) )
     if(kk<3) { kc <- c(NA,NA) } else {
       ka <- cor(kx,ky,use = "complete.obs",method = md)
@@ -66,14 +51,14 @@ do_cor_asb <- function(comp,md = "pearson",cutoff = 0.5, flank, absolute = F) { 
 }
 #
 
-all_value_mtFreq_phyloPabs_2bp_asBack_pearson <- do_cor_asb(compin,md = "pearson", flank = 0.25,cutoff = 0.5,absolute = T)
-cor_value_mtFreq_phyloPabs_2bp_asBack_pearson <- all_value_mtFreq_phyloPabs_2bp_asBack_pearson[1,]
-p_value_mtFreq_phyloPabs_2bp_asBack_pearson <- all_value_mtFreq_phyloPabs_2bp_asBack_pearson[2,]
+all_value <- do_cor_0bp_abs(compin,md = "pearson")
+cor_value <- all_value[1,]
+p_value <-   all_value[2,]
 
-TFBS <- data.frame(mytfbs, cor_value = cor_value_mtFreq_phyloPabs_2bp_asBack_pearson, p_value = p_value_mtFreq_phyloPabs_2bp_asBack_pearson)
+TFBS <- data.frame(mytfbs, cor_value = cor_value, p_value = p_value)
 write.table(x = TFBS,file = paste0(outdir,"/TFBS_unfiltered.bed"),row.names = F,col.names = F,quote = F,sep = "\t")
 
-TFBS_filtered <- TFBS[ ! is.na(p_value_mtFreq_phyloPabs_2bp_asBack_pearson) & p_value_mtFreq_phyloPabs_2bp_asBack_pearson<=0.05 & cor_value_mtFreq_phyloPabs_2bp_asBack_pearson>0,]
+TFBS_filtered <- TFBS[ ! is.na(TFBS$p_value) & TFBS$p_value <= 0.05 & TFBS$cor_value > 0.5, ]	# XXX
 
 TFBS_filtered$cor_value <- round(TFBS_filtered$cor_value,4)
 TFBS_filtered$p_value <- format(x = TFBS_filtered$p_value,digits = 4,scientific = T)

@@ -37,7 +37,7 @@ The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID 
 The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 The candidate TFBS which showed correlation will be kept as functional ones with following filtering cutoff:
-[correlation score > 0] AND [correlation p-value <= 0.05]
+[correlation score > 0.5] AND [correlation p-value <= 0.05]
 
 After running it there will be two output files generated in the output directory, which are in bed6+ format (9 columns).
 
