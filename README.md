@@ -33,9 +33,9 @@ funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -
 2) The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 **Tip:**
-Due to the PhyloP file may be very large, it is recommended to split it and run FunTFBS for each chromosome.
+- Due to the PhyloP file may be very large, it is recommended to split it and run FunTFBS for each chromosome.
 
-After running the example above there will be two files (bed6+ format with 9 columns) generated in the output directory:
+After running the example above, there will be two files (bed6+ format with 9 columns) generated in the output directory:
 
 - TFBS_unfiltered.bed: Total candidate TFBS before filtering.  
 - TFBS_filtered.bed: Functional TFBS after filtering.
