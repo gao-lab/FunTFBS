@@ -29,15 +29,13 @@ funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -
 	-h             show this help information.
 ```
 **Note:**
-
 1) The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
-
 2) The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 After running it there will be two files generated in the output directory, which are in bed6+ format (9 columns).
 
-TFBS_unfiltered.bed: Total candidate TFBS before filtering.  
-TFBS_filtered.bed: Functional TFBS after filtering.
+- TFBS_unfiltered.bed: Total candidate TFBS before filtering.  
+- TFBS_filtered.bed: Functional TFBS after filtering.
 
 The header of the output files is:
 
@@ -45,7 +43,7 @@ The header of the output files is:
 2. start
 3. end
 4. TF
-5. value(kept from input file and not used)
+5. value (kept from input file and not used)
 6. strand
 7. sequence
 8. correlation (Pearson)
