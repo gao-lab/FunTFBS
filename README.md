@@ -2,11 +2,11 @@
 FunTFBS is used for identifying transcriptional factor binding sites (TFBS) which have transcriptional regulatory functions. Given a set of candidate TFBS set, for each binding site FunTFBS can filter for functional ones based on the correlation between frequencies in binding motif and conservation scores (the absolute values of PhyloP) across base pairs.
 
 ## Prerequisite
-1. perl (5.010 or later)
+1. perl (5.010 or later)  
    You can type "perl -v" to check for the version.
-2. R (3.0.1 or later)
+2. R (3.0.1 or later)  
    You can type "R --version" to check for the version.
-3. R package: data.table (1.10.4 or later)
+3. R package: data.table (1.10.4 or later)  
    You can type "library("data.table")" in R environment to check for the version.  
    If this package is not installed, just type "install.packages("data.table")" for installation.
 
