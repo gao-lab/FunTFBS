@@ -17,7 +17,7 @@ The "funTFBS" file can be run directly, also you can add this path to the PATH e
 
 ## General usage
 ```
-funTFBS -t TFBS -m motifs -f motif_format -p PhyloP -g genome -o output
+funTFBS -t TFBS -m motifs -f motif-format -p PhyloP -g genome -o output
 
 	-t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
 	-m [motifs]    the file containing binding motifs in specified format.
