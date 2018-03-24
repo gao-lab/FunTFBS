@@ -57,7 +57,7 @@ The header of the output files:
 9. p-value (correlation test)
 
 ## Credits
-Feng Tian, Jinpu Jin
+Feng Tian, Dechang Yang, Yuqi Meng, Jinpu Jin\*, Ge Gao\*.
 
 For more details, please see http://plantregmap.cbi.pku.edu.cn/funtfbs.php
 
