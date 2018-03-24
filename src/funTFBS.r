@@ -4,8 +4,8 @@ library("data.table")
 #library("parallel")
 
 if(length(commandArgs(T))!=4) {
-cat("Usage: Rscript do_filterTFBS.r ","\n")
-cat("       Rscript do_filterTFBS.r demo/test_100_TFBS.bed demo/test_100_mtFreq.txt demo/test_100_phyloP.txt ftout/test\n")
+cat("Usage: Rscript funTFBS.r ","\n")
+cat("       Rscript funTFBS.r demo/test_100_TFBS.bed demo/test_100_mtFreq.txt demo/test_100_phyloP.txt test\n")
 q(save="no")
 }
 
@@ -14,7 +14,7 @@ file_mtFreq <- commandArgs(trailingOnly = T)[2]
 file_phyloP <- commandArgs(trailingOnly = T)[3]
 outdir <- commandArgs(trailingOnly = T)[4]
 
-#cl <- makeCluster(getOption("cl.cores", 20-1))
+#cl <- makeCluster(getOption("cl.cores", 10))
 
 ###
 do_test <- function() {
