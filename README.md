@@ -19,7 +19,7 @@ The "funTFBS" file can be run directly, also you can add this path to the PATH e
 ```
 funTFBS -t TFBS -m motifs -f motif-format -p PhyloP -g genome -o output
 
-	-t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
+	-t [TFBS.bed]  the file containing positions of candidate TFBS in bed format (with strand information).
 	-m [motifs]    the file containing binding motifs in specified format.
 	-f [format]    the format of bidning motifs, could be one of them:
 	               meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
