@@ -1,6 +1,4 @@
 # FunTFBS
-[![PlantRegMap](http://plantregmap.cbi.pku.edu.cn/)](http://www.yiiframework.com/)
-
 FunTFBS is used for identifying transcriptional factor binding sites (TFBS) which have transcriptional regulatory functions. Given a set of candidate TFBS, FunTFBS can filter for functional ones based on the correlation between frequencies in binding motifs and conservation scores (the absolute value of PhyloP) across base pairs.
 
 ## Prerequisite
