@@ -11,7 +11,7 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
    If this package is not installed, just type "install.packages("data.table")" for installation.
 
 ## Installation
-The "funTFBS" file can be run directly, also you can add this path to PATH environment variable.
+The "funTFBS" file can be run directly, also you can add this path to the PATH environment variable.
 
 `export PATH=$PATH:/the path of this package`
 
