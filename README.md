@@ -35,9 +35,10 @@ funTFBS -t TFBS -m motifs -f motif_format -p PhyloP -g genome -o output
 **Tip:**
 - Due to the PhyloP file may be very large, it is recommended to split it and run FunTFBS for each chromosome.
 
-**Demo:**  
-`funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
-
+**Demo:**
+```
+funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
+```
 After running the example, there will be two files (bed6+ format with 9 columns) generated in the output directory:
 
 - TFBS_unfiltered.bed: Total candidate TFBS before filtering.  
