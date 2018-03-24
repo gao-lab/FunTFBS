@@ -12,21 +12,11 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 
 ## Installation
 The "funTFBS" file can be run directly, also you can add this path to PATH environment variable.
-
 `export PATH=$PATH:/the path of this package`
 
-For testing the program, please run following command line:
-
-`funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
-
-If there is no error you will get two files in the "test" fold, which are identical with those in the "demo" fold.
-`test/TFBS_unfiltered.bed
-
-test/TFBS_filtered.bed`
-
 ## General usage
-funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
-
+`funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
+```
         -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
         -m [motifs]    the file containing binding motifs in specified format.
         -f [format]    the format of bidning motifs, could be one of them:
@@ -35,19 +25,18 @@ funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -
         -g [genome.fa] the file containing genomic sequence in fasta format.
         -o [output]    the output directory.
         -h             show this help information.
-
+```
 Note:
-The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
 
-The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
+1) The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
 
-The candidate TFBS  will be filtered with following cutoff: [correlation score > 0.5] AND [correlation p-value <= 0.05]
+2) The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 After running it there will be two files generated in the output directory, which are in bed6+ format (9 columns).
-
+```
 TFBS_unfiltered.bed: Total candidate TFBS before filtering.
 TFBS_filtered.bed: Functional TFBS after filtering.
-
+```
 The header of the output files is:
 chromosome  start  end  TF  value(not used)  strand  sequence  correlation(Pearson)  p-value(correlation test)
 
