@@ -13,7 +13,9 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 ## Installation
 The "funTFBS" file can be run directly:
 
-`./funTFBS`
+```
+./funTFBS
+```
 
 Also you can add this path to the PATH environment variable and run it out of directory:
 
