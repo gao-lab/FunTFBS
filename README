@@ -34,20 +34,21 @@ funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -
 
         -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
         -m [motifs]    the file containing binding motifs in specified format.
-        -f [format]    the format of bidning motifs, could be: meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
+        -f [format]    the format of bidning motifs, could be one of them:
+		       meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
         -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
         -g [genome.fa] the file containing genomic sequence in fasta format.
         -o [output]    the output directory.
         -h             show this help information.
 
+Note:
 The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
 
 The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
-The candidate TFBS which showed correlation will be kept as functional ones with following filtering cutoff:
-[correlation score > 0.5] AND [correlation p-value <= 0.05]
+The candidate TFBS  will be filtered with following cutoff: [correlation score > 0.5] AND [correlation p-value <= 0.05]
 
-After running it there will be two output files generated in the output directory, which are in bed6+ format (9 columns).
+After running it there will be two files generated in the output directory, which are in bed6+ format (9 columns).
 
 TFBS_unfiltered.bed: Total candidate TFBS before filtering.
 TFBS_filtered.bed: Functional TFBS after filtering.
