@@ -12,19 +12,20 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 
 ## Installation
 The "funTFBS" file can be run directly, also you can add this path to PATH environment variable.
+
 `export PATH=$PATH:/the path of this package`
 
 ## General usage
 `funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
 ```
-        -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
-        -m [motifs]    the file containing binding motifs in specified format.
-        -f [format]    the format of bidning motifs, could be one of them:
-		           meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
-        -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
-        -g [genome.fa] the file containing genomic sequence in fasta format.
-        -o [output]    the output directory.
-        -h             show this help information.
+      -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
+      -m [motifs]    the file containing binding motifs in specified format.
+      -f [format]    the format of bidning motifs, could be one of them:
+	             meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
+      -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
+      -g [genome.fa] the file containing genomic sequence in fasta format.
+      -o [output]    the output directory.
+      -h             show this help information.
 ```
 Note:
 
@@ -38,7 +39,16 @@ TFBS_unfiltered.bed: Total candidate TFBS before filtering.
 TFBS_filtered.bed: Functional TFBS after filtering.
 ```
 The header of the output files is:
-chromosome  start  end  TF  value(not used)  strand  sequence  correlation(Pearson)  p-value(correlation test)
+
+1.chromosome
+2.start
+3.end
+4.TF
+5.value(not used)
+6.strand
+7.sequence
+8.correlation(Pearson)
+9.p-value(correlation test)
 
 ## Credits
 Feng Tian, Jinpu Jin
