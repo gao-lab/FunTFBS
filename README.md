@@ -30,7 +30,7 @@ funTFBS -t TFBS -m motifs -f motif-format -p PhyloP -g genome -o output
 ```
 **Note:**
 1) The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
-2) The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
+2) The phyloP file should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 **Tip:**
 - Due to the PhyloP file may be very large, it is recommended to split it and run FunTFBS for each chromosome.
