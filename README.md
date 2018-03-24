@@ -13,7 +13,7 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 ## Installation
 The "funTFBS" file can be run directly, also you can add this path to PATH environment variable.
 
-export PATH=$PATH:/the path of this package
+`export PATH=$PATH:/the path of this package`
 
 For testing the program, please run following command line:
 
@@ -29,7 +29,7 @@ funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -
         -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
         -m [motifs]    the file containing binding motifs in specified format.
         -f [format]    the format of bidning motifs, could be one of them:
-		       meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
+		           meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
         -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
         -g [genome.fa] the file containing genomic sequence in fasta format.
         -o [output]    the output directory.
