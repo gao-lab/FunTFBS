@@ -16,39 +16,40 @@ The "funTFBS" file can be run directly, also you can add this path to PATH envir
 `export PATH=$PATH:/the path of this package`
 
 ## General usage
-`funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
 ```
-      -t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
-      -m [motifs]    the file containing binding motifs in specified format.
-      -f [format]    the format of bidning motifs, could be one of them:
-	             meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
-      -p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
-      -g [genome.fa] the file containing genomic sequence in fasta format.
-      -o [output]    the output directory.
-      -h             show this help information.
+funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
+
+	-t [TFBS.bed]  the file containing candidate TFBS in bed format (with strand information)
+	-m [motifs]    the file containing binding motifs in specified format.
+	-f [format]    the format of bidning motifs, could be one of them:
+	               meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
+	-p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
+	-g [genome.fa] the file containing genomic sequence in fasta format.
+	-o [output]    the output directory.
+	-h             show this help information.
 ```
-Note:
+**Note:**
 
 1) The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
 
 2) The phyloP.bg should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 After running it there will be two files generated in the output directory, which are in bed6+ format (9 columns).
-```
-TFBS_unfiltered.bed: Total candidate TFBS before filtering.
+
+TFBS_unfiltered.bed: Total candidate TFBS before filtering.  
 TFBS_filtered.bed: Functional TFBS after filtering.
-```
+
 The header of the output files is:
 
-1.chromosome
-2.start
-3.end
-4.TF
-5.value(not used)
-6.strand
-7.sequence
-8.correlation(Pearson)
-9.p-value(correlation test)
+1. chromosome
+2. start
+3. end
+4. TF
+5. value(kept from input file and not used)
+6. strand
+7. sequence
+8. correlation (Pearson)
+9. p-value (correlation test)
 
 ## Credits
 Feng Tian, Jinpu Jin
