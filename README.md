@@ -23,14 +23,14 @@ funTFBS -t TFBS -m motifs -f motif-format -p PhyloP -g genome -o output
 	-m [motifs]    the file containing binding motifs in specified format.
 	-f [format]    the format of bidning motifs, could be one of them:
 	               meme/beeml/chen/jaspar-pfm/jaspar-sites/jaspar-cm/transfac/uniprobe.
-	-p [phyloP.bg] the file containing PhyloP scores in bedGraph format.
+	-p [PhyloP.bg] the file containing PhyloP scores in bedGraph format.
 	-g [genome.fa] the file containing genomic sequence in fasta format.
 	-o [output]    the output directory.
 	-h             show this help information.
 ```
 **Note:**
 1) The 4th column of TFBS.bed is used as TF ID, which should be matched with TF ID in the motifs file.
-2) The phyloP file should be sorted by coordinate (sort -k 1,1 -k 2,2n).
+2) The PhyloP file should be sorted by coordinate (sort -k 1,1 -k 2,2n).
 
 **Tip:**
 - Due to the PhyloP file may be very large, it is recommended to split it and run FunTFBS for each chromosome.
