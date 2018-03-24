@@ -21,6 +21,7 @@ For testing the program, please run following command line:
 
 If there is no error you will get two files in the "test" fold, which are identical with those in the "demo" fold.
 `test/TFBS_unfiltered.bed
+
 test/TFBS_filtered.bed`
 
 ## General usage
