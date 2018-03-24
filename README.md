@@ -17,11 +17,11 @@ The "funTFBS" file can be run directly, also you can add this path to PATH envir
 
 For testing the program, please run following command line:
 
-funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
+`funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test`
 
 If there is no error you will get two files in the "test" fold, which are identical with those in the "demo" fold.
-test/TFBS_unfiltered.bed
-test/TFBS_filtered.bed
+`test/TFBS_unfiltered.bed
+test/TFBS_filtered.bed`
 
 ## General usage
 funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
