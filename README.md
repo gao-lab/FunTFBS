@@ -9,7 +9,7 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 3. R package: data.table (1.10.4 or later)  
    You can type `library("data.table")` in R environment to check for the version.  
    If this package is not installed, just type `install.packages("data.table")` for installation.
-4. MEME Suite (optional, used for motif transformation)
+4. MEME Suite (optional, used for motif transformation)  
    If this package is not installed, you can download it from the MEME Suite website.
 
 ## Installation
