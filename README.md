@@ -3,12 +3,12 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 
 ## Prerequisite
 1. perl (5.010 or later)  
-   You can type "perl -v" to check for the version.
+   You can type `perl -v` to check for the version.
 2. R (3.0.1 or later)  
-   You can type "R --version" to check for the version.
+   You can type `R --version` to check for the version.
 3. R package: data.table (1.10.4 or later)  
-   You can type "library("data.table")" in R environment to check for the version.  
-   If this package is not installed, just type "install.packages("data.table")" for installation.
+   You can type `library("data.table")` in R environment to check for the version.  
+   If this package is not installed, just type `install.packages("data.table")` for installation.
 
 ## Installation
 The "funTFBS" file can be run directly:
