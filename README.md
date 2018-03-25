@@ -1,5 +1,5 @@
 # FunTFBS
-FunTFBS is used for identifying transcriptional factor binding sites (TFBS) which have transcriptional regulatory functions. Given a set of candidate TFBS, FunTFBS can filter for functional ones based on the correlation between frequencies in binding motifs and conservation scores (the absolute value of PhyloP) across base pairs.
+FunTFBS is used for identifying transcriptional factor binding sites (TFBS) which have **transcriptional regulatory functions**. Given a set of candidate TFBS, FunTFBS can filter for functional ones based on the correlation between frequencies in binding motifs and conservation scores (the absolute value of PhyloP) across base pairs.
 
 ## Prerequisite
 1. perl (5.010 or later)  
