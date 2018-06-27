@@ -20,8 +20,9 @@ Usage:   funTFBS -t TFBS.bed -m motifs -f format -p phyloP.bg -g genome.fa -o ou
 	 -o [output]    the output directory.
 	 -h             show this help information.
 
+Example: funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
 EOF
-echo Example: funTFBS -t demo/test_TFBS.bed -m demo/Ath.meme -f meme -p demo/test_PhyloP.bed -g demo/Ath_test.fa -o test
+
 exit
 }
 
