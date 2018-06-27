@@ -109,11 +109,15 @@ n=`cat $output_dir/TFBS_filtered.bed | wc -l`
 echo "TFBS after filtering: $n"
 
 # clean tmp files
+function do_clean {
 rm -rf $output_dir/motifs
 rm -f $output_dir/input.meme $output_dir/TFBS.fa $output_dir/mtFreq.txt $output_dir/TF_missed.txt $output_dir/TF_in_motif.txt $output_dir/TF_in_BS.txt
 rm -f $output_dir/TFBS.bed_numed $output_dir/tmp[12].bed* $output_dir/TFBS.pp_* $output_dir/TFBS.pp0
 rm -f $output_dir/TFBS.bed $output_dir/TFBS.mtFreq $output_dir/TFBS.pp
 #rm -f $output_dir/TFBS_unfiltered.bed
+}
+
+do_clean
 
 echo "$output_dir/TFBS_filtered.bed"
 #echo "OK"
