@@ -9,8 +9,8 @@ FunTFBS is used for identifying transcriptional factor binding sites (TFBS) whic
 3. R package: data.table (1.10.4 or later)  
    You can type `library("data.table")` in R environment to check for the version.  
    If this package is not installed, just type `install.packages("data.table")` for installation.
-4. Bedtools (2.26.0)
-   You can type `bedtools --version` to check for the version.
+4. Bedtools (2.26.0)  
+   You can type `bedtools --version` to check for the version.  
    If this package is not installed, you can download it from [Github](https://github.com/arq5x/bedtools2).
 5. The MEME Suite (4.10.0 or later) (optional, only used when motifs are NOT in `meme` format)  
    If this package is not installed, you can download it from [MEME Suite release page](http://meme-suite.org/doc/download.html?man_type=web).
