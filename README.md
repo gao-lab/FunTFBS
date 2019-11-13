@@ -70,7 +70,7 @@ The header of the output files:
 8. correlation (Pearson)
 9. p-value (correlation test)
 
-For more details, please see http://plantregmap.cbi.pku.edu.cn/funtfbs.php
+For more details, please see http://plantregmap.cbi.pku.edu.cn/funtfbs_manual.php
 
 Questions or Comments, please contact: planttfdb@mail.cbi.pku.edu.cn
 
