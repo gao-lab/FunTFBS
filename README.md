@@ -70,10 +70,9 @@ The header of the output files:
 8. correlation (Pearson)
 9. p-value (correlation test)
 
-## Credits
-Feng Tian, Dechang Yang, Yuqi Meng, Jinpu Jin\* and Ge Gao\*.
-
 For more details, please see http://plantregmap.cbi.pku.edu.cn/funtfbs.php
 
 Questions or Comments, please contact: planttfdb@mail.cbi.pku.edu.cn
 
+## Citation
+Tian, F., Yang, D. C., Meng, Y. Q., Jin, J. & Gao, G. [PlantRegMap: charting functional regulatory maps in plants](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkz1020). *Nucleic Acids Res*,  (2019).
