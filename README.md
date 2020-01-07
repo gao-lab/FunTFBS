@@ -75,4 +75,4 @@ For more details, please see http://plantregmap.cbi.pku.edu.cn/funtfbs_manual.ph
 Questions or Comments, please contact: planttfdb@mail.cbi.pku.edu.cn
 
 ## Citation
-Tian, F., Yang, D. C., Meng, Y. Q., Jin, J. & Gao, G. [PlantRegMap: charting functional regulatory maps in plants](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkz1020). *Nucleic Acids Res*,  (2019).
+Tian, F., Yang, D. C., Meng, Y. Q., Jin, J. & Gao, G. [PlantRegMap: charting functional regulatory maps in plants](https://academic.oup.com/nar/article/48/D1/D1104/5614566). *Nucleic Acids Res* **48**, D1104-D1113 (2020).
